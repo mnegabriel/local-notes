@@ -11,14 +11,14 @@ export class Saver {
 
   saveNote({ id, title, body, updated }: Note): void {
     const notes = this.getAllNotes()
-    const existingNote = notes.find( note => note.id === id)
+    const existingNote = notes.find(note => note.id === id)
 
-    if(existingNote) {
-      Object.assign(existingNote, { title, body, updated})
+    if (existingNote) {
+      Object.assign(existingNote, { title, body, updated })
     } else {
-      const note = new Note({title, body})
+      const note = new Note({ title, body })
       notes.push(note)
-    }   
+    }
 
     this.#saveToLocalStorage(notes)
   }

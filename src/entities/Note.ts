@@ -1,10 +1,9 @@
 export interface NoteParams {
-
   id?: number
   title: string
   body: string
   updated?: string
-} 
+}
 
 export class Note {
   id: number

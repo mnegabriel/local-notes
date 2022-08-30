@@ -77,10 +77,10 @@ export class DomHandler {
     if (!btn) throw new Error("Add button not found")
 
     btn.addEventListener("click", () => {
-      const note = new Note({title: "New note", body: "Add body content here"})
+      const note = new Note({ title: "New note", body: "Add body content here" })
 
       this.#createListItem(note)
-      
+
       if (this.onNoteAdd) this.onNoteAdd(note)
     })
   }
@@ -106,7 +106,7 @@ export class DomHandler {
     if (this.onNoteEdit) this.onNoteEdit(noteContent)
   })
 
-  #createListItem({id, title, body, updated}: Note) {
+  #createListItem({ id, title, body, updated }: Note) {
     const MAX_BODY_LENGHT = 60
 
     const shownBody = [
@@ -114,7 +114,7 @@ export class DomHandler {
       body.length > MAX_BODY_LENGHT ? "..." : ''
     ].join('')
 
-    const updatedLocalized = new Date(updated).toLocaleString(undefined, { 
+    const updatedLocalized = new Date(updated).toLocaleString(undefined, {
       dateStyle: "full",
       timeStyle: "short"
     })
@@ -131,31 +131,31 @@ export class DomHandler {
 
   updateNotesList(notes: Note[]) {
     const listElement = this.root.querySelector<HTMLUListElement>('.notes__list')
-    if(!listElement) throw new Error("List element not found")
+    if (!listElement) throw new Error("List element not found")
 
     listElement.innerHTML = ''
 
-    notes.forEach( note => {
+    notes.forEach(note => {
       const listItemElement = this.#createListItem(note)
 
       listElement.insertAdjacentHTML("beforeend", listItemElement)
     })
-    
-    listElement.querySelectorAll<HTMLLIElement>(".notes__list-item").forEach( listItemElement => {
+
+    listElement.querySelectorAll<HTMLLIElement>(".notes__list-item").forEach(listItemElement => {
       listItemElement.addEventListener('click', () => {
         const dataNoteId = listItemElement.dataset['noteId']
-        
-        if(!dataNoteId) throw new Error("Note Id not found!")
-        
+
+        if (!dataNoteId) throw new Error("Note Id not found!")
+
         this.onNoteSelect && this.onNoteSelect(Number(dataNoteId))
       })
-      
+
       listItemElement.addEventListener("dblclick", () => {
         const doDelete = confirm("Are you sure you want to delete this note?")
-        if(!doDelete) return
-        
+        if (!doDelete) return
+
         const dataNoteId = listItemElement.dataset['noteId']
-        if(!dataNoteId) throw new Error("Note Id not found!")
+        if (!dataNoteId) throw new Error("Note Id not found!")
         this.onNoteDelete && this.onNoteDelete(Number(dataNoteId))
       })
     })
@@ -170,25 +170,25 @@ export class DomHandler {
     const textarea = this.root.querySelector<HTMLTextAreaElement>("#note-body")
     if (!textarea) throw new Error("Body input not found");
 
-    this.root.querySelectorAll<HTMLLIElement>(".notes__list-item").forEach( li => {
+    this.root.querySelectorAll<HTMLLIElement>(".notes__list-item").forEach(li => {
       li.classList.remove(SELECTED_CLASS)
     })
 
-    if(!note) {
+    if (!note) {
       input.value = ''
       textarea.value = ''
 
       return
     }
 
-    const {id, title, body} = note
+    const { id, title, body } = note
 
     input.value = title
     textarea.value = body
 
     const chosen = this.root.querySelector<HTMLLIElement>(`.notes__list-item[data-note-id="${id}"]`)
 
-    if(!chosen) throw new Error("Note note found")
+    if (!chosen) throw new Error("Note note found")
 
     chosen.classList.add(SELECTED_CLASS)
   }
@@ -196,8 +196,8 @@ export class DomHandler {
   updateNotePreviewVisibility(visible = true) {
     const notePreview = this.root.querySelector<HTMLElement>(".notes__preview")
 
-    if(!notePreview) throw new Error("Note preview note found")
+    if (!notePreview) throw new Error("Note preview note found")
 
-    notePreview.style.visibility =  visible ? "visible" : "hidden"
+    notePreview.style.visibility = visible ? "visible" : "hidden"
   }
 }

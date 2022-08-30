@@ -18,12 +18,12 @@ export class App {
 
   #handlers(): ConstructorParameters<typeof DomHandler>[1] {
     return {
-      onNoteSelect: (noteId) =>  {
-        const selectedNote = this.notes.find( ({id}) => id === noteId)
-        if(!selectedNote) return
+      onNoteSelect: (noteId) => {
+        const selectedNote = this.notes.find(({ id }) => id === noteId)
+        if (!selectedNote) return
         this.#setActiveNote(selectedNote)
       },
-      onNoteAdd: (note) =>  {
+      onNoteAdd: (note) => {
         this.saver.saveNote(note)
         this.#refreshNotes()
       },
@@ -31,8 +31,8 @@ export class App {
         this.saver.deleteNote(noteId)
         this.#refreshNotes()
       },
-      onNoteEdit: ({body, title}) => {
-        if(!this.activeNote) return
+      onNoteEdit: ({ body, title }) => {
+        if (!this.activeNote) return
 
         this.activeNote.title = title
         this.activeNote.body = body
@@ -50,7 +50,7 @@ export class App {
 
     this.#setNotes(notes)
 
-    if(notes.length) this.#setActiveNote(notes[0])
+    if (notes.length) this.#setActiveNote(notes[0])
   }
 
   #setNotes(notes: Note[]) {
