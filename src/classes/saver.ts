@@ -25,7 +25,7 @@ export class Saver {
 
   deleteNote(id: number): void {
     const notes = this.#getFromLocalStorage()
-    const filtered = notes.filter(note => note.id === id)
+    const filtered = notes.filter(note => note.id !== id)
 
     this.#saveToLocalStorage(filtered)
   }
