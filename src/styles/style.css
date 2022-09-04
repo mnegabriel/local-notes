@@ -22,6 +22,7 @@
   border-right: 2px solid var(--col-gray);
   min-height: 0;
   display: grid;
+  align-content: flex-start;
 }
 
 .notes__header {
