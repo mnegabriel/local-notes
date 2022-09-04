@@ -49,7 +49,9 @@ export class DomHandler {
   #boot() {
     this.root.innerHTML = [
       /*html*/`<aside class="notes__sidebar">`,
-        /*html*/`<button class="notes__add" type="button">Add Note</button>`,
+        /*html*/`<header class="notes__header">`,
+          /*html*/`<button class="notes__add" type="button">Add Note</button>`,
+        /*html*/`</header>`,
       /**/
         /*html*/`<ul class="notes__list">`,
         /*html*/`</ul>`,
